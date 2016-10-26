@@ -1,0 +1,27 @@
+---
+
+- name: Installation
+  hosts: all
+  sudo: yes
+
+  tasks:
+    - name: Installation de Git
+      apt: name=git update_cache=yes
+    - name: Installation Nginx
+      apt: name=nginx state=latest
+    - name: Start Nginx
+      service: name=nginx state=started enabled=true
+    - name: Installation Supervisor
+      apt: name=supervisord state=latest
+    - name: name= Installation Sqlite
+      apt: name=sqlite state=latest
+    - name: Installation Gunicorn
+      apt: name=gunicorn state=latest
+    - easy_install: name=pip state=latest
+    - pip: name=flask
+    - debug: msg="Le serveur est à 0.0.0.0:5000 "
+    - name: Lancement du serveur!
+      command: python /vagrant/hello.py 
+    
+
+...
